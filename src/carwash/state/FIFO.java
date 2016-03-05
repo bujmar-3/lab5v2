@@ -34,7 +34,7 @@ public boolean empty(){
  * @return Returns the first element in the FIFO.
  * */
 public Car getFirst(){
-	if (carQ.isEmpty==true){
+	if (carQ.empty()==true){
 		return;
 	}
 	else{
