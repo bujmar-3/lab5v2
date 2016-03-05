@@ -4,9 +4,15 @@ public class CarWash {
 private int gotCar = 0;
 private Car car;
 private double idleTime;
+private int speed; // Speed of the CarWash 1 for fast 0 for slow.
+private int state = 0;
 
-public CarWash(){
-	
+/**
+ * Creates a new CarWash
+ * @param int speed of the machine 1 for fast 0 for slow
+ * */
+public CarWash(int speed){
+	this.speed=speed;
 }
 /**
  * Returns true if the Carwash got a car otherwise false.
