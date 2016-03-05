@@ -34,24 +34,14 @@ public boolean empty(){
  * @return Returns the first element in the FIFO.
  * */
 public Car getFirst(){
-	if (carQ.empty()==true){
-		return;
-	}
-	else{
 		return carQ.elementAt(0);
 	}
-}
 /**
  * Removes first object in FIFO
  * */
 public void removeFirst(){
-	if (carQ.isEmpty==false){
 		carQ.remove(0);
 	}
-	else{
-		return;
-	}
-}
 /**
  * @return Returns the vector CarQ which holds car objects 
  * */

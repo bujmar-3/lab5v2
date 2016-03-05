@@ -50,6 +50,13 @@ public Car getCar(){
 public double getIdle(){
 	return this.idleTime;
 }
+/**
+ * Returns the speed of the carwash.
+ * @return Int, returns the speed of the CarWash, 1 for fast 0 for slow.
+ * */
+public int getSpeed(){
+	return this.speed;
+}
 
 
 
