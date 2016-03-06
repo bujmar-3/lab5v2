@@ -8,6 +8,7 @@ public class CarWashState extends SimState {
 	private Vector<CarWash> fast;
 	private FIFO carQueue;
 	private CarFactory factory;
+	private int maxQueueSize;
 	
 	//Statistics
 	
@@ -58,7 +59,9 @@ public class CarWashState extends SimState {
 		if (carQueue.empty()){
 			addWash(car);
 		}
-		else{addQueue(car);}
+		else if(maxQueueSize > carQueue.getSize()){
+			addQueue(car);
+		}
 	}
 	/**
 	 * Tries to add car to a carwash, if carwashes are full adds car to car queue.
