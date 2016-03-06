@@ -1,7 +1,7 @@
 package carwash.state;
 
 public class CarWash {
-private int gotCar = 0;
+private boolean hasCar;
 private Car car;
 private double idleTime;
 private int speed; // Speed of the CarWash 1 for fast 0 for slow.
@@ -13,15 +13,14 @@ private int state = 0;
  * */
 public CarWash(int speed){
 	this.speed=speed;
+	hasCar = false;
 }
 /**
  * Returns true if the Carwash got a car otherwise false.
  * @return boolean
  * */
 public boolean gotCar(){
-	if (gotCar == 1){
-		return true;
-	}else{return false;}
+	return hasCar;
 }
 /**
  * Adds Car to the CarWash.
@@ -29,12 +28,14 @@ public boolean gotCar(){
  * */
 public void addCar(Car i){
 	this.car = i;
+	hasCar = true;
 }
 /**
  * Removes the car for the CarWash.
  * */
 public void removeCar(){
 	this.car = null;
+	hasCar = false;
 }
 /**
  * Returns the car the CarWash holds
