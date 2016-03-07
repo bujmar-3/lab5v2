@@ -227,10 +227,6 @@ public class CarWashState extends SimState {
 	 * @return double time.
 	 */
 	public double getTotalQueueTime(){
-		Vector<Car>queue = carQueue.getCarq();
-		for (Car car : queue){
-			totalQueueTime += currentTime - car.getArrive();
-		}
 		return totalQueueTime;
 	}
 	/**
