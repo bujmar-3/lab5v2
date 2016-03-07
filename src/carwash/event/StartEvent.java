@@ -23,8 +23,8 @@ import carwash.state.CarWashState;
  */ 
  	public void updateState(SimState state, EventQueue eventQueue) { 
  		CarWashState s = (CarWashState) state; 
- 		s.getInfo().setCurrentTime(this.time); 
- 		eventQueue.insert(new ArriveEvent(s.nextArriveTime(), 
+ 		s.setCurrentTime(this.time); 
+ 		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
  					s.getCarFactory().createCar())); 
  		s.updateView(this);  
  	} 

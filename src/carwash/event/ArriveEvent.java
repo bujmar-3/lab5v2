@@ -18,7 +18,7 @@ import carwash.state.*;
  	 */ 
  	public ArriveEvent(double time, Car car) { 
  		super(time, car); 
- 		car.setArriveTime(time); 
+ 		car.setArrive(time); 
  	} 
  
  	
@@ -31,17 +31,24 @@ import carwash.state.*;
  		CarWashState s = (CarWashState) state; 
  
  
- 		Info info = s.getInfo(); 
+ 		s.setCurrentTime(this.time); 
  
- 
- 		s.getInfo().setCurrentTime(this.time); 
- 
- 
- 		if (info.getEmptyFast() > 0 || info.getEmptySlow() > 0) { 
+ 		if (s.getCarQueueSize() == 0){
+ 			if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) {
+ 					s.addWash(car);
+ 			}
+ 			else s.addQueue(car);
+ 		}
+ 		else if (s.getCarQueueSize()>=s.getMaxQueueSize()){
+ 			s.reject(); 
+ 		}
+ 		else s.addQueue(car);
+ 		
+ 		if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) { 
  			// add car to fastWash or slowWash 
  			eventQueue.insert(new LeaveEvent(car, s.addToMachine(car))); 
  			info.incNumCarsEntered(); 
- 		} else if (info.getCarsInQueue() < info.getMaxQueueSize()) { 
+ 		} else if (s.getCarsInQueue() < info.getMaxQueueSize()) { 
  			// add to car queue 
  			info.incNumCarsEntered(); 
  			s.addToQueue(car); 

@@ -29,9 +29,9 @@ import carwash.state.CarWashState;
  	 * method updating the state according to the stop event 
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) { 
-		CarWashState cwState = (CarWashState) state; 
- 		cwState.getInfo().setCurrentTime(this.time); 
- 		cwState.doNotify(this); 
- 		cwState.stop(); 
+		CarWashState s = (CarWashState) state; 
+ 		s.setCurrentTime(this.time); 
+ 		s.updateView(this); 
+ 		s.stop(); 
  	} 
  } 
