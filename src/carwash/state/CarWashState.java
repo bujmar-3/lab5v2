@@ -48,6 +48,12 @@ public class CarWashState extends SimState {
 		currentTime = time;
 	}
 	/**
+	 * Adds queue time to the total queue time.
+	 * */
+	public void addTotalQueueTime(double time){
+		totalQueueTime += time;
+	}
+	/**
 	 * Creates CarWashes
 	 * @param s number of slow carwashes to create.
 	 * @param f number of fast carwashes to create.
