@@ -58,12 +58,12 @@ public class CarWashState extends SimState {
 		freeSlow = s;
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
-			CarWash wash = new CarWash(0, slowRandom);
+			CarWash wash = new CarWash(slowRandom);
 			slow.addElement(wash);
 		}
 		//Creates fast machines
 		for (int e =0; e < f; e++){
-			CarWash wash = new CarWash(1, fastRandom);
+			CarWash wash = new CarWash(fastRandom);
 			fast.addElement(wash);
 		}
 	}
@@ -164,7 +164,7 @@ public class CarWashState extends SimState {
 		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
 	}
 	
-	///Statistics to print/use.
+	///Below you find statistics to print/use.
 	/**
 	 * Gets seed
 	 * @return seed

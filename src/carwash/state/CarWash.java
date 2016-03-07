@@ -5,16 +5,24 @@ public class CarWash {
 private boolean hasCar;
 private Car car;
 private double idleTime;
-private int speed; // Speed of the CarWash 1 for fast 0 for slow.
-private UniformRandomStream uniStr;
+private double timeUsed;
+private UniformRandomStream uniStream;
 
 /**
  * Creates a new CarWash
  * @param int speed of the machine 1 for fast 0 for slow
  * */
-public CarWash(int speed, UniformRandomStream uniStr){
-	this.speed=speed;
+public CarWash(UniformRandomStream uniStr){
+	this.uniStream = uniStr;
 	hasCar = false;
+	idleTime = 0;
+}
+/**
+ * Returns the time it takes to wash the car
+ * @return time
+ * */
+public double timeToWash(){
+	return uniStream.next();
 }
 /**
  * Returns true if the Carwash got a car otherwise false.
@@ -51,13 +59,6 @@ public Car getCar(){
  * */
 public double getIdle(){
 	return this.idleTime;
-}
-/**
- * Returns the speed of the carwash.
- * @return Int, returns the speed of the CarWash, 1 for fast 0 for slow.
- * */
-public int getSpeed(){
-	return this.speed;
 }
 
 

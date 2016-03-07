@@ -1,6 +1,8 @@
 package simulator.state;
 import java.util.Observable;
 
+import simulator.event.Event;
+
 public class SimState extends Observable {
 	private boolean started;
 	
@@ -22,5 +24,12 @@ public class SimState extends Observable {
 	 * */
 	public boolean state(){
 		return started;
+	}
+	/**
+	 * 
+	 * */
+	public void updateView(Event e){
+		setChanged();
+		notifyObservers(e);
 	}
 }
