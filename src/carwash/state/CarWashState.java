@@ -23,16 +23,13 @@ public class CarWashState extends SimState {
 	private double slowMax;
 	private double lambda;
 	private double currentTime;
-	private int numCarQueue;
 	private int rejected;
 	private int accepted;
 	private int numFast;
 	private int numSlow;
 	private int freeFast;
 	private int freeSlow;
-	private double totalIdleCarWash;
 	private double totalQueueTime;
-	private double meanQueueTime;
 	
 	
 	public CarWashState(){
@@ -41,6 +38,13 @@ public class CarWashState extends SimState {
 		factory = new CarFactory();
 		carQueue = new FIFO();
 		start();
+	}
+	/**
+	 * Sets current time
+	 * @param time to set current time to.
+	 * */
+	public void setCurrentTime(double time){
+		currentTime = time;
 	}
 	/**
 	 * Creates CarWashes
@@ -77,7 +81,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void addQueue(Car car){
 		carQueue.add(car);
-		numCarQueue++;
+		accepted++;
 	}
 	/**
 	 * Removes first car in the queue.
@@ -85,7 +89,7 @@ public class CarWashState extends SimState {
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
-		numCarQueue--;
+		accepted--;
 		return removed;
 	}
 	/**
@@ -160,7 +164,7 @@ public class CarWashState extends SimState {
 		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
 	}
 	
-	///Statistics to print
+	///Statistics to print/use.
 	/**
 	 * Gets seed
 	 * @return seed
@@ -176,17 +180,30 @@ public class CarWashState extends SimState {
 		return lambda;
 	}
 	/**
-	 * Gets the maximum value
+	 * Gets the maximum value used in random number generator for slow carwashes.
+	 * @return max value for number generator used for slow carwashes.
 	 * */
 	public double getSlowMax(){
 		return slowMax;
 	}
+	/**
+	 * Gets the minimum value used in random number generator for slow carwashes.
+	 * @return minimum value for number generator used for slow carwashes.
+	 * */
 	public double getSlowMin(){
 		return slowMin;
 	}
+	/**
+	 * Gets the maximum value used in random number generator for fast carwashes.
+	 * @return max value for number generator used for fast carwashes.
+	 * */
 	public double getFastMax(){
 		return fastMax;
 	}
+	/**
+	 * Gets the minimum value used in random number generator for fast carwashes.
+	 * @return minimum value for number generator used for fast carwashes.
+	 * */
 	public double getFastMin(){
 		return fastMin;
 	}
@@ -202,7 +219,8 @@ public class CarWashState extends SimState {
 	 * @return double time.
 	 */
 	public double getTotalQueueTime(){
-		for (Car car : carQueue){
+		Vector<Car>queue = carQueue.getCarq();
+		for (Car car : queue){
 			totalQueueTime += currentTime - car.getArrive();
 		}
 		return totalQueueTime;
@@ -248,6 +266,34 @@ public class CarWashState extends SimState {
 	 * */
 	public int getMaxQueueSize(){
 		return maxQueueSize;
+	}
+	/**
+	 * Returns number of rejected cars.
+	 * @return number rejected cars.
+	 * */
+	public int getRejected(){
+		return rejected;
+	}
+	/**
+	 * Returns the size of the car queue.
+	 * @return size of car queue.
+	 * */
+	public int getCarQueueSize(){
+		return carQueue.getSize();
+	}
+	/**
+	 * Returns the sum of time all machines has been idle.
+	 * @return double idle time
+	 * */
+	public double getTotalIdleCarWash(){
+		double idleTime = 0;
+		for (CarWash carwash : fast){
+			idleTime += carwash.getIdle();
+		}
+		for (CarWash carwash : slow){
+			idleTime += carwash.getIdle();
+		}
+		return idleTime;
 	}
 
 }
