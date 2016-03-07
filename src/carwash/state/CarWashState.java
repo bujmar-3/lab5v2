@@ -23,7 +23,7 @@ public class CarWashState extends SimState {
 	private double slowMax;
 	private double lambda;
 	private double currentTime;
-	private int carsInQueue;
+	private int carQueueSize;
 	private int rejected;
 	private int accepted;
 	private int numFast;
@@ -82,7 +82,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void addQueue(Car car){
 		carQueue.add(car);
-		carsInQueue++;
+		carQueueSize++;
 		accepted++;
 	}
 	/**
@@ -91,7 +91,7 @@ public class CarWashState extends SimState {
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
-		carsInQueue--;
+		carQueueSize--;
 		return removed;
 	}
 	/**
@@ -287,7 +287,7 @@ public class CarWashState extends SimState {
 	 * @return size of car queue.
 	 * */
 	public int getCarQueueSize(){
-		return carQueue.getSize();
+		return carQueueSize;
 	}
 	/**
 	 * Returns the sum of time all machines has been idle.
