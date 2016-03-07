@@ -23,6 +23,7 @@ public class CarWashState extends SimState {
 	private double slowMax;
 	private double lambda;
 	private double currentTime;
+	private int carsInQueue;
 	private int rejected;
 	private int accepted;
 	private int numFast;
@@ -41,15 +42,15 @@ public class CarWashState extends SimState {
 	}
 	/**
 	 * Sets current time
-	 * @param time to set current time to.
+	 * @param double to set current time to.
 	 * */
 	public void setCurrentTime(double time){
 		currentTime = time;
 	}
 	/**
 	 * Creates CarWashes
-	 * @param s Creates the number s slow carwashes
-	 * @param f Creates the number f fast carwashes
+	 * @param s number of slow carwashes to create.
+	 * @param f number of fast carwashes to create.
 	 * */
 	public void createWashes(int s, int f){
 		numFast = f;
@@ -81,6 +82,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void addQueue(Car car){
 		carQueue.add(car);
+		carsInQueue++;
 		accepted++;
 	}
 	/**
@@ -89,7 +91,7 @@ public class CarWashState extends SimState {
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
-		accepted--;
+		carsInQueue--;
 		return removed;
 	}
 	/**
@@ -266,6 +268,12 @@ public class CarWashState extends SimState {
 	 * */
 	public int getMaxQueueSize(){
 		return maxQueueSize;
+	}
+	/**
+	 * Adds one to the number of rejected cars
+	 * */
+	public void reject(){
+		rejected++;
 	}
 	/**
 	 * Returns number of rejected cars.
