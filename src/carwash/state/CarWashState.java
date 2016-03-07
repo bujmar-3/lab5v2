@@ -22,6 +22,17 @@ public class CarWashState extends SimState {
 	private double slowMin;
 	private double slowMax;
 	private double lambda;
+	private double currentTime;
+	private int numCarQueue;
+	private int rejected;
+	private int accepted;
+	private int numFast;
+	private int numSlow;
+	private int freeFast;
+	private int freeSlow;
+	private double totalIdleCarWash;
+	private double totalQueueTime;
+	private double meanQueueTime;
 	
 	
 	public CarWashState(){
@@ -37,6 +48,10 @@ public class CarWashState extends SimState {
 	 * @param f Creates the number f fast carwashes
 	 * */
 	public void createWashes(int s, int f){
+		numFast = f;
+		freeFast = f;
+		numSlow = s;
+		freeSlow = s;
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
 			CarWash wash = new CarWash(0, slowRandom);
@@ -52,7 +67,7 @@ public class CarWashState extends SimState {
 	 * Sets maximum queue size for car queue.
 	 * @param size
 	 * */
-	public void setMaxQueue(int size){
+	public void setMaxQueueSize(int size){
 		maxQueueSize = size;
 	}
 	
@@ -62,6 +77,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void addQueue(Car car){
 		carQueue.add(car);
+		numCarQueue++;
 	}
 	/**
 	 * Removes first car in the queue.
@@ -69,6 +85,7 @@ public class CarWashState extends SimState {
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
+		numCarQueue--;
 		return removed;
 	}
 	/**
@@ -81,12 +98,14 @@ public class CarWashState extends SimState {
 			if(spot.gotCar()==false){
 				spot.addCar(car);
 				foundWash = true;
+				freeFast--;
 				break;
 				}
 			}
 		if (foundWash == false){
 			for (CarWash spot : slow){
 				spot.addCar(car);
+				freeSlow--;
 				break;
 			}
 		}
@@ -102,6 +121,7 @@ public class CarWashState extends SimState {
 			if (spot.getCar()==car){
 				spot.removeCar();
 				carFound = true;
+				freeFast++;
 				break;
 			}
 		}
@@ -109,6 +129,7 @@ public class CarWashState extends SimState {
 			for (CarWash spot : slow){
 				if (spot.getCar()==car){
 					spot.removeCar();
+					freeSlow++;
 					break;
 				}
 			}
@@ -139,6 +160,7 @@ public class CarWashState extends SimState {
 		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
 	}
 	
+	///Statistics to print
 	/**
 	 * Gets seed
 	 * @return seed
@@ -147,11 +169,85 @@ public class CarWashState extends SimState {
 		return seed;
 	}
 	/**
+	 * Gets lambda
+	 * @return lambda
+	 * */
+	public double getLambda(){
+		return lambda;
+	}
+	/**
+	 * Gets the maximum value
+	 * */
+	public double getSlowMax(){
+		return slowMax;
+	}
+	public double getSlowMin(){
+		return slowMin;
+	}
+	public double getFastMax(){
+		return fastMax;
+	}
+	public double getFastMin(){
+		return fastMin;
+	}
+	/**
 	 * Returns next arrive time.
 	 * @double arrive time.
 	 * */
 	public double nextArrive(){
 		return latestArrive += carRandom.next();
+	}
+	/**
+	 * Retururns total queue time for car queue.
+	 * @return double time.
+	 */
+	public double getTotalQueueTime(){
+		for (Car car : carQueue){
+			totalQueueTime += currentTime - car.getArrive();
+		}
+		return totalQueueTime;
+	}
+	/**
+	 * Returns mean car queue time.
+	 * @return double.
+	 * */
+	public double getMeanQueueTime(){
+		return totalQueueTime/accepted;
+	}
+	/**
+	 * Returns number of fast carwashes.
+	 * @return int number.
+	 * */
+	public int getNumFast(){
+		return numFast;
+	}
+	/**
+	 * Returns number of slow carwashes.
+	 * @return int number.
+	 * */
+	public int getNumSlow(){
+		return numSlow;
+	}
+	/**
+	 * Returns number of fast carwashes with no car.
+	 * @return int number of fast washes with no car.
+	 * */
+	public int getFreeFast(){
+		return freeFast;
+	}
+	/**
+	 * Returns number of slow carwashes with no car.
+	 * @return int number of slow washes with no car.
+	 * */
+	public int getFreeSlow(){
+		return freeSlow;
+	}
+	/**
+	 * Returns the maximum queue size for the car queue.
+	 * @return int maximum size for the car queue.
+	 * */
+	public int getMaxQueueSize(){
+		return maxQueueSize;
 	}
 
 }
