@@ -8,8 +8,7 @@ import carwash.state.*;
 /** 
  * A class for ArriveEvents in a CarWash. 
  * Symbolizes the arrival of a car to a carwash. 
-  * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
-  */ 
+ */ 
  public class ArriveEvent extends CarWashEvent { 
  	/** 
  	 * Constructs an ArriveEvent 
@@ -47,20 +46,17 @@ import carwash.state.*;
  		if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) { 
  			// add car to fastWash or slowWash 
  			eventQueue.insert(new LeaveEvent(car, s.addToMachine(car))); 
- 			info.incNumCarsEntered(); 
- 		} else if (s.getCarsInQueue() < info.getMaxQueueSize()) { 
- 			// add to car queue 
- 			info.incNumCarsEntered(); 
- 			s.addToQueue(car); 
+ 		} else if (s.getCarQueueSize() < s.getMaxQueueSize()) { 
+ 			// add to car queue  
+ 			s.addQueue(car); 
  		} else { 
- 			info.incNumRejectedCars(); 
+ 			s.reject(); 
  		} 
  		s.updateView(this); 
  
  
  		// if none of the if-statements is fulfilled the car is simply not used 
- 		eventQueue.insert(new ArriveEvent(s.nextArriveTime(), 
+ 		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
  					s.getCarFactory().createCar())); 
  	} 
  } 
-

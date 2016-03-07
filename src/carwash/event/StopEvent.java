@@ -10,8 +10,6 @@ import carwash.state.CarWashState;
  
 /** 
  * A class symbolizing the stopping of the carwashstate 
- * @author Andreas Nielsen Fredrik Lind Sebastian Larsson 
- * 
  */ 
 	public class StopEvent extends Event { 
  

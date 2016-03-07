@@ -9,8 +9,6 @@ import simulator.event.EventQueue;
 import carwash.state.CarWashState; 
 /** 
  * A StartEvent symbolizing when the simulation starts 
- * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
- * 
  */ 
 	public class StartEvent extends Event { 
 		public StartEvent() { 

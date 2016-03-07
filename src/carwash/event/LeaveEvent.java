@@ -6,7 +6,6 @@ import simulator.event.EventQueue;
  
 /** 
  * A LeaveEvent for a CarWash. Symbolizes the leaving of a car from a carwash. 
- * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
   */ 
  public class LeaveEvent extends CarWashEvent { 
  
@@ -30,12 +29,12 @@ import simulator.event.EventQueue;
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) { 
  		CarWashState s = (CarWashState) state; 
- 		s.getInfo().setCurrentTime(this.time); 
- 		s.removeFromMachines(this.car); 
- 		if (s.getInfo().getCarsInQueue() != 0) { 
- 			Car c = s.removeFromQueue(); 
- 			s.getInfo().incTotalQueueingTime(this.time - c.getArriveTime()); 
- 			eventQueue.insert(new LeaveEvent(c, s.addToMachine(c))); 
+ 		s.setCurrentTime(this.time); 
+ 		s.removeWash(this.car); 
+ 		if (s.getCarQueueSize() != 0) { 
+ 			Car c = s.removeQueue(); 
+ 			s.addTotalQueueTime(this.time - c.getArrive()); 
+ 			eventQueue.insert(new LeaveEvent(c, s.addWash(c))); 
  		} 
  		s.updateView(this); 
  	} 
