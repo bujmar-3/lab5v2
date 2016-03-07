@@ -26,6 +26,6 @@ import carwash.state.CarWashState;
  		s.getInfo().setCurrentTime(this.time); 
  		eventQueue.insert(new ArriveEvent(s.nextArriveTime(), 
  					s.getCarFactory().createCar())); 
- 		s.doNotify(this); 
+ 		s.updateView(this);  
  	} 
  } 

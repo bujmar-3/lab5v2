@@ -37,6 +37,6 @@ import simulator.event.EventQueue;
  			s.getInfo().incTotalQueueingTime(this.time - c.getArriveTime()); 
  			eventQueue.insert(new LeaveEvent(c, s.addToMachine(c))); 
  		} 
- 		s.doNotify(this); 
+ 		s.updateView(this); 
  	} 
  } 

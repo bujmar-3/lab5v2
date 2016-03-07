@@ -5,7 +5,6 @@ import simulator.event.Event;
 import simulator.state.SimState; 
 import simulator.event.EventQueue; 
 
- 
 import carwash.state.CarWashState; 
 
  

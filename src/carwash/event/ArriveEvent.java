@@ -3,6 +3,8 @@ package carwash.event;
 import simulator.state.SimState; 
 import simulator.event.EventQueue;
 import carwash.state.*; 
+
+
 /** 
  * A class for ArriveEvents in a CarWash. 
  * Symbolizes the arrival of a car to a carwash. 
@@ -19,7 +21,6 @@ import carwash.state.*;
  		car.setArriveTime(time); 
  	} 
  
-
  	
  	 	/** 
  	 * updates the state with the changes that an ArriveEvent makes 
@@ -47,7 +48,7 @@ import carwash.state.*;
  		} else { 
  			info.incNumRejectedCars(); 
  		} 
- 		s.doNotify(this); 
+ 		s.updateView(this); 
  
  
  		// if none of the if-statements is fulfilled the car is simply not used 
