@@ -2,6 +2,8 @@ package carwash.state;
 
 import simulator.state.SimState;
 import java.util.Vector;
+import random.ExponentialRandomStream;
+import random.UniformRandomStream;
 
 public class CarWashState extends SimState {
 	private Vector<CarWash> slow;
@@ -9,8 +11,17 @@ public class CarWashState extends SimState {
 	private FIFO carQueue;
 	private CarFactory factory;
 	private int maxQueueSize;
-	
+	private ExponentialRandomStream carRandom;
+	private UniformRandomStream fastRandom;
+	private UniformRandomStream slowRandom;
 	//Statistics
+	private double latestArrive;
+	private long seed;
+	private double fastMin;
+	private double fastMax;
+	private double slowMin;
+	private double slowMax;
+	private double lambda;
 	
 	
 	public CarWashState(){
@@ -28,15 +39,23 @@ public class CarWashState extends SimState {
 	public void createWashes(int s, int f){
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
-			CarWash wash = new CarWash(0);
+			CarWash wash = new CarWash(0, slowRandom);
 			slow.addElement(wash);
 		}
 		//Creates fast machines
 		for (int e =0; e < f; e++){
-			CarWash wash = new CarWash(1);
+			CarWash wash = new CarWash(1, fastRandom);
 			fast.addElement(wash);
 		}
 	}
+	/**
+	 * Sets maximum queue size for car queue.
+	 * @param size
+	 * */
+	public void setMaxQueue(int size){
+		maxQueueSize = size;
+	}
+	
 	/**
 	 * Adds car to the queue.
 	 * @param car to add to queue.
@@ -47,48 +66,31 @@ public class CarWashState extends SimState {
 	/**
 	 * Removes first car in the queue.
 	 * */
-	public void removeQueue(){
+	public Car removeQueue(){
+		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
+		return removed;
 	}
 	/**
-	 * Checks if car queue is empty. If car queue is empty it tries to add car to an Carwash.
-	 * If queue is not empty it adds car to car queue.
-	 * @param car
-	 * */
-	public void checkQueue(Car car){
-		if (carQueue.empty()){
-			addWash(car);
-		}
-		else if(maxQueueSize > carQueue.getSize()){
-			addQueue(car);
-		}
-	}
-	/**
-	 * Tries to add car to a carwash, if carwashes are full adds car to car queue.
+	 * Adds Car to CarWash
 	 * @param car to add.
 	 * */
 	public void addWash(Car car){
-			boolean fastFound = false;
-			boolean slowFound = false;
-			for (CarWash spot : fast){
-				if(spot.gotCar()==false){
-					spot.addCar(car);
-					fastFound = true;
-					break;
+		boolean foundWash = false;
+		for (CarWash spot : fast){
+			if(spot.gotCar()==false){
+				spot.addCar(car);
+				foundWash = true;
+				break;
 				}
 			}
-			if (fastFound == false){
-				for (CarWash spot : slow){
-					if(spot.gotCar()==false){
-						spot.addCar(car);
-						slowFound = true;
-						break;
-					}
-				}
+		if (foundWash == false){
+			for (CarWash spot : slow){
+				spot.addCar(car);
+				break;
 			}
-			if(slowFound==false){
-				addQueue(car);
 		}
+		
 	}
 	/**
 	 * Removes specific car from the carwash.
@@ -112,4 +114,44 @@ public class CarWashState extends SimState {
 			}
 		}
 	}
+	
+	/**
+	 * Returns the carfactory
+	 * @return CarFactory
+	 * */
+	public CarFactory getCarFactory(){
+		return factory;
+	}
+	
+	/**
+	 * Creates random streams.
+	 * */
+	public void createRandom(double fastMax, double fastMin, double slowMax, double slowMin, double lambda, long seed){
+		this.fastMax = fastMax;
+		this.fastMin = fastMin;
+		this.slowMax = slowMax;
+		this.slowMin = slowMin;
+		this.lambda = lambda;
+		this.seed = seed;
+		
+		carRandom = new ExponentialRandomStream(this.lambda, this.seed);
+		fastRandom = new UniformRandomStream(this.fastMin, this.fastMax, this.seed);
+		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
+	}
+	
+	/**
+	 * Gets seed
+	 * @return seed
+	 * */
+	public long getSeed(){
+		return seed;
+	}
+	/**
+	 * Returns next arrive time.
+	 * @double arrive time.
+	 * */
+	public double nextArrive(){
+		return latestArrive += carRandom.next();
+	}
+
 }

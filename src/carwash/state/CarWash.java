@@ -1,17 +1,18 @@
 package carwash.state;
+import random.UniformRandomStream;
 
 public class CarWash {
 private boolean hasCar;
 private Car car;
 private double idleTime;
 private int speed; // Speed of the CarWash 1 for fast 0 for slow.
-private int state = 0;
+private UniformRandomStream uniStr;
 
 /**
  * Creates a new CarWash
  * @param int speed of the machine 1 for fast 0 for slow
  * */
-public CarWash(int speed){
+public CarWash(int speed, UniformRandomStream uniStr){
 	this.speed=speed;
 	hasCar = false;
 }
