@@ -1,10 +1,8 @@
 package carwash.event; 
  
- 
-import carwash.state.*; 
+import carwash.state.*;  
 import simulator.state.SimState; 
 import simulator.event.EventQueue; 
-
  
 /** 
  * A LeaveEvent for a CarWash. Symbolizes the leaving of a car from a carwash. 

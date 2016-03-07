@@ -2,7 +2,7 @@ package carwash.event;
  
 import simulator.state.SimState; 
 import simulator.event.EventQueue;
-import lab5.carwash.state.*; 
+import carwash.state.*; 
 /** 
  * A class for ArriveEvents in a CarWash. 
  * Symbolizes the arrival of a car to a carwash. 

@@ -1,28 +1,35 @@
-package carwash.event;
+package carwash.event; 
+ 
+ 
+import simulator.event.Event; 
+import carwash.state.Car; 
 
-import carwash.state.Car;
-import simulator.event.Event;
-import simulator.state.SimState;
+ 
+/** 
+ * An abstract CarWashEvent symbolizing events that occur at a CarWash 
+ * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
+ * 
+ */ 
+	public abstract class CarWashEvent extends Event { 
+		protected Car car; 
 
-public abstract class CarWashEvent extends Event{
-	private Car car = null;
-	
-	public CarWashEvent(double time) {
-		super(time);
-	}
-	
-	public void addCar(Car c) {
-		if (car == null){
-			car = c;
-		} else {
-			throw new UnknownError("You can't add 2 cars to an event!");
-		}
-	}
-	public Car getCar() {
-		if (car == null) {
-			throw new IllegalStateException("You must add a car first!");
-		}
-		return car;
-	}
-}
-
+ 
+/** 
+* Constructs a carWashEvent with a specific car 
+* @param time the time the event will occur 
+* @param car the specific car that causes the event 
+*/ 
+	public CarWashEvent(double time, Car car) { 
+		super(time); 
+		this.car = car; 
+ 	} 
+ 
+ 
+/** 
+ * returns the car that causes the event 
+ * @return the car that causes the event 
+ */ 
+	public Car getCar() { 
+ 		return this.car; 
+	} 
+} 

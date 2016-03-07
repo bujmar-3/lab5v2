@@ -1,4 +1,4 @@
-package simulator.event;
+ackage simulator.event;
 
 public class Test {
 Testar123tetest

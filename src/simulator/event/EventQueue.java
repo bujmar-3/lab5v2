@@ -1,43 +1,20 @@
-package simulator.event;
+package simulator.event; 
 
-import java.util.PriorityQueue;
-
-/**
- * This class contains events, sorted by their time.
- * The sorting makes sure the events are run in proper order.
+/** 
+ * The class symbolizes an event queue containing events for a simulator. Defines the type of the sorted sequence to an Event type.  
+ * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
  * 
- */
-public class EventQueue {
-	private PriorityQueue<Event> queue;
+ */ 
+	public class EventQueue extends SortedSequence<Event> { 
 
-	public EventQueue() {
-		queue = new PriorityQueue<Event>();
-	}
-	
-	/**
-	 * Constants 
-	 * Adds a event to the queue.
-	 * @param event
-	 */
-	public void add(Event event) {
-		queue.add(event);
-	}
-	
-	/**
-	 * returns head of queue and removes it from the queue.
-	 * @return Head of the queue
-	 */
-	public Event poll() {
-		return queue.poll();
-	}
-	
-	/**
-	 * 
-	 * @return True if the queue is empty
-	 */
-	public boolean empty() {
-		return queue.isEmpty();
-	}
-
-
-}
+ 
+/** 
+ * Method returning the first Event of the event queue and removing it from the event queue 
+ * @return the first Event of the event queue. 
+ */ 
+ 	public Event get() { 
+ 		Event event = this.first(); 
+ 		this.removeFirst(); 
+ 		return event; 
+ 	} 
+ } 
