@@ -103,7 +103,7 @@ public class CarWashState extends SimState {
 	 * */
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
-		System.out.println("Q: removed car to queue, car id: " + removed.getId());
+		System.out.println("Q: removed car from queue, car id: " + removed.getId());
 		carQueue.removeFirst();
 		carQueueSize--;
 		return removed;
@@ -117,7 +117,7 @@ public class CarWashState extends SimState {
 		System.out.println("freeFast: " + freeFast);
 		System.out.println("freeSlow: " + freeSlow);
 		System.out.println("QueueTime: " + getTotalQueueTime());
-		System.out.println("Idle: " + getTotalIdleCarWash());
+		System.out.println("Idle: " + totalIdleCarWash);
 		double washTime = 0;
 		boolean foundWash = false;
 		for (CarWash wash : fast){
@@ -155,7 +155,6 @@ public class CarWashState extends SimState {
 				spot.removeCar();
 				carFound = true;
 				freeFast++;
-				spot.setLastTimeUsed(currentTime);
 				System.out.println("W: removed car from wash with id: " + car.getId());
 				break;
 			}
@@ -165,14 +164,18 @@ public class CarWashState extends SimState {
 				if (spot.getCar()==car){
 					spot.removeCar();
 					freeSlow++;
-					spot.setLastTimeUsed(currentTime);
 					System.out.println("W: removed car from wash with id: " + car.getId());
 					break;
 				}
 			}
 		}
 	}
-	
+	/**
+	 * 
+	 * */
+	public void incIdleTime(double eventTime){
+		totalIdleCarWash += ((eventTime - currentTime)*getIdleWashes());
+	}
 	/**
 	 * Returns the carfactory
 	 * @return CarFactory
@@ -320,17 +323,28 @@ public class CarWashState extends SimState {
 		return carQueueSize;
 	}
 	/**
-	 * Returns the sum of time all machines has been idle.
-	 * @return double idle time
+	 * Gets the number of idle carwashes.
+	 * @return number idle carwashes.
 	 * */
-	public double getTotalIdleCarWash(){
+	public int getIdleWashes(){
+		int idleWashes = 0;
 		for (CarWash wash : fast){
-			totalIdleCarWash += currentTime - wash.getLastTimeUsed();
+			if (!wash.gotCar()){
+				idleWashes++;
+			}
 		}
 		for (CarWash wash : slow){
-			totalIdleCarWash += currentTime - wash.getLastTimeUsed();
+			if (!wash.gotCar()){
+				idleWashes++;
+			}
 		}
+		return idleWashes;
+	}
+	/**
+	 * Returns the time carwashes has been idle.
+	 * @return time carwash is idle
+	 * */
+	public double getTotalIdleCarWash(){
 		return totalIdleCarWash;
 	}
-
 }

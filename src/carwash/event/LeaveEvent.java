@@ -29,6 +29,7 @@ import simulator.event.EventQueue;
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) {
  		CarWashState s = (CarWashState) state; 
+ 		s.incIdleTime(this.time);
  		s.setCurrentTime(this.time);
  		s.removeWash(this.car); 
  		if (s.getCarQueueSize() != 0) { 
