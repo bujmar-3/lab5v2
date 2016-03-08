@@ -45,7 +45,7 @@ import carwash.state.*;
  		
  		if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) { 
  			// add car to fastWash or slowWash 
- 			eventQueue.insert(new LeaveEvent(car, s.addToMachine(car))); 
+ 			eventQueue.insert(new LeaveEvent(car, s.addWash(car))); 
  		} else if (s.getCarQueueSize() < s.getMaxQueueSize()) { 
  			// add to car queue  
  			s.addQueue(car); 

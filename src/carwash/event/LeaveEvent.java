@@ -36,6 +36,6 @@ import simulator.event.EventQueue;
  			s.addTotalQueueTime(this.time - c.getArrive()); 
  			eventQueue.insert(new LeaveEvent(c, s.addWash(c))); 
  		} 
- 		s.updateView(this); 
+ 		s.updateView(this);
  	} 
  } 
