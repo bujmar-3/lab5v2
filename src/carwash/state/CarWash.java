@@ -4,7 +4,7 @@ import random.UniformRandomStream;
 public class CarWash {
 private boolean hasCar;
 private Car car;
-private double idleTime;
+private double lastTimeUsed;
 private UniformRandomStream uniStream;
 
 /**
@@ -14,7 +14,7 @@ private UniformRandomStream uniStream;
 public CarWash(UniformRandomStream uniStr){
 	this.uniStream = uniStr;
 	hasCar = false;
-	idleTime = 0;
+	lastTimeUsed = 0;
 }
 /**
  * Returns the time it takes to wash the car
@@ -56,8 +56,8 @@ public Car getCar(){
  * Returns the time CarWash has been idle
  * @return Double
  * */
-public double getIdle(){
-	return this.idleTime;
+public double getLastTimeUsed(){
+	return this.lastTimeUsed;
 }
 
 

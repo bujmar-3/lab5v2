@@ -302,14 +302,7 @@ public class CarWashState extends SimState {
 	 * @return double idle time
 	 * */
 	public double getTotalIdleCarWash(){
-		double idleTime = 0;
-		for (CarWash carwash : fast){
-			idleTime += carwash.getIdle();
-		}
-		for (CarWash carwash : slow){
-			idleTime += carwash.getIdle();
-		}
-		return idleTime;
+		return seed;
 	}
 
 }
