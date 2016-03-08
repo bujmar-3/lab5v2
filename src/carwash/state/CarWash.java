@@ -53,6 +53,13 @@ public Car getCar(){
 		return this.car;
 	}
 /**
+ * Sets the time for when carwash was last used.
+ * @param lastTime
+ */
+public void setLastTimeUsed(double lastTime){
+	lastTimeUsed = lastTime;
+}
+/**
  * Returns the time CarWash has been idle
  * @return Double
  * */

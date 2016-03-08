@@ -31,6 +31,7 @@ public class CarWashState extends SimState {
 	private int freeFast;
 	private int freeSlow;
 	private double totalQueueTime;
+	private double totalIdleCarWash;
 	
 	
 	public CarWashState(){
@@ -46,6 +47,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void setCurrentTime(double time){
 		currentTime = time;
+		System.out.println("Set currentime to " + currentTime);
 	}
 	/**
 	 * Adds queue time to the total queue time.
@@ -63,7 +65,8 @@ public class CarWashState extends SimState {
 		freeFast = f;
 		numSlow = s;
 		freeSlow = s;
-		System.out.println("Created carwash");
+		System.out.println("Created fast " + f);
+		System.out.println("Created slow " + s);
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
 			CarWash wash = new CarWash(slowRandom);
@@ -89,6 +92,7 @@ public class CarWashState extends SimState {
 	 * @param car to add to queue.
 	 * */
 	public void addQueue(Car car){
+		System.out.println("add queue");
 		carQueue.add(car);
 		carQueueSize++;
 		accepted++;
@@ -97,6 +101,7 @@ public class CarWashState extends SimState {
 	 * Removes first car in the queue.
 	 * */
 	public Car removeQueue(){
+		System.out.println("remove queue");
 		Car removed = carQueue.getFirst();
 		carQueue.removeFirst();
 		carQueueSize--;
@@ -108,22 +113,24 @@ public class CarWashState extends SimState {
 	 * */
 	public double addWash(Car car){
 		double totalTime = 0;
-		boolean foundWash = false;
-		for (CarWash spot : fast){
-			if(spot.gotCar()==false){
-				spot.addCar(car);
-				foundWash = true;
+		boolean notfoundWash = true;
+		for (CarWash wash : fast){
+			if(wash.gotCar()==false){
+				wash.addCar(car);
+				notfoundWash = false;
 				freeFast--;
-				totalTime = currentTime + spot.timeToWash();
+				System.out.println("added car to fast wash, car id: " + wash.getCar().getId());
 				break;
 				}
 			}
-		if (foundWash == false){
-			for (CarWash spot : slow){
-				spot.addCar(car);
-				freeSlow--;
-				totalTime = currentTime + spot.timeToWash();
+		if (notfoundWash){
+			for (CarWash wash : slow){
+				if(wash.gotCar()==false){
+					wash.addCar(car);
+					freeSlow--;
+					System.out.println("added car to slow wash, car id: " + wash.getCar().getId());
 				break;
+				}
 			}
 		}
 		return totalTime;
@@ -139,6 +146,8 @@ public class CarWashState extends SimState {
 				spot.removeCar();
 				carFound = true;
 				freeFast++;
+				spot.setLastTimeUsed(currentTime);
+				System.out.println("removed car from wash with id: " + car.getId());
 				break;
 			}
 		}
@@ -147,6 +156,8 @@ public class CarWashState extends SimState {
 				if (spot.getCar()==car){
 					spot.removeCar();
 					freeSlow++;
+					spot.setLastTimeUsed(currentTime);
+					System.out.println("removed car from wash with id: " + car.getId());
 					break;
 				}
 			}
@@ -158,6 +169,7 @@ public class CarWashState extends SimState {
 	 * @return CarFactory
 	 * */
 	public CarFactory getCarFactory(){
+		System.out.println("gotcarfactory");
 		return factory;
 	}
 	
@@ -302,7 +314,13 @@ public class CarWashState extends SimState {
 	 * @return double idle time
 	 * */
 	public double getTotalIdleCarWash(){
-		return seed;
+		for (CarWash wash : fast){
+			totalIdleCarWash += currentTime - wash.getLastTimeUsed();
+		}
+		for (CarWash wash : slow){
+			totalIdleCarWash += currentTime - wash.getLastTimeUsed();
+		}
+		return totalIdleCarWash;
 	}
 
 }
