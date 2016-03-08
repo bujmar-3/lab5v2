@@ -34,8 +34,8 @@ public boolean gotCar(){
  * Adds Car to the CarWash.
  * @param Car
  * */
-public void addCar(Car i){
-	this.car = i;
+public void addCar(Car car){
+	this.car = car;
 	hasCar = true;
 }
 /**

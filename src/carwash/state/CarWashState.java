@@ -112,28 +112,30 @@ public class CarWashState extends SimState {
 	 * @param car to add.
 	 * */
 	public double addWash(Car car){
-		double totalTime = 0;
-		boolean notfoundWash = true;
+		double washTime = 0;
+		boolean foundWash = false;
 		for (CarWash wash : fast){
 			if(wash.gotCar()==false){
 				wash.addCar(car);
-				notfoundWash = false;
+				foundWash = true;
+				washTime = wash.timeToWash();
 				freeFast--;
 				System.out.println("added car to fast wash, car id: " + wash.getCar().getId());
 				break;
 				}
 			}
-		if (notfoundWash){
+		if (!foundWash){
 			for (CarWash wash : slow){
 				if(wash.gotCar()==false){
 					wash.addCar(car);
+					washTime = wash.timeToWash();
 					freeSlow--;
 					System.out.println("added car to slow wash, car id: " + wash.getCar().getId());
-				break;
+					break;
 				}
 			}
 		}
-		return totalTime;
+		return washTime;
 	}
 	/**
 	 * Removes specific car from the carwash.
