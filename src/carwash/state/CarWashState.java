@@ -104,13 +104,15 @@ public class CarWashState extends SimState {
 	 * Adds Car to CarWash
 	 * @param car to add.
 	 * */
-	public void addWash(Car car){
+	public double addWash(Car car){
+		double totalTime = 0;
 		boolean foundWash = false;
 		for (CarWash spot : fast){
 			if(spot.gotCar()==false){
 				spot.addCar(car);
 				foundWash = true;
 				freeFast--;
+				totalTime = currentTime + spot.timeToWash();
 				break;
 				}
 			}
@@ -118,10 +120,11 @@ public class CarWashState extends SimState {
 			for (CarWash spot : slow){
 				spot.addCar(car);
 				freeSlow--;
+				totalTime = currentTime + spot.timeToWash();
 				break;
 			}
 		}
-		
+		return totalTime;
 	}
 	/**
 	 * Removes specific car from the carwash.

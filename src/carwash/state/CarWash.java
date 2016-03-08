@@ -5,7 +5,6 @@ public class CarWash {
 private boolean hasCar;
 private Car car;
 private double idleTime;
-private double timeUsed;
 private UniformRandomStream uniStream;
 
 /**
