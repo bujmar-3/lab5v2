@@ -45,6 +45,7 @@ import carwash.state.*;
  		}
  		else s.addQueue(car);
  		
+ 		s.updateView(this); 
  		
  		/*
  		if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) { 
@@ -56,8 +57,8 @@ import carwash.state.*;
  		} else { 
  			s.reject(); 
  		} 
- 		s.updateView(this); 
  		*/
+ 		
  
  		// if none of the if-statements is fulfilled the car is simply not used 
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
