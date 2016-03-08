@@ -63,6 +63,7 @@ public class CarWashState extends SimState {
 		freeFast = f;
 		numSlow = s;
 		freeSlow = s;
+		System.out.println("Created carwash");
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
 			CarWash wash = new CarWash(slowRandom);
@@ -80,6 +81,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void setMaxQueueSize(int size){
 		maxQueueSize = size;
+		System.out.println("setmaxsize");
 	}
 	
 	/**
@@ -173,6 +175,7 @@ public class CarWashState extends SimState {
 		carRandom = new ExponentialRandomStream(this.lambda, this.seed);
 		fastRandom = new UniformRandomStream(this.fastMin, this.fastMax, this.seed);
 		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
+		System.out.println("created streams");
 	}
 	
 	///Below you find statistics to print/use.
