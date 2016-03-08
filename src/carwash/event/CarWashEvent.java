@@ -1,13 +1,12 @@
 package carwash.event; 
  
  
-import simulator.event.Event; 
+import simulator.event.Event;  
 import carwash.state.Car; 
 
  
 /** 
  * An abstract CarWashEvent symbolizing events that occur at a CarWash 
- * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
  * 
  */ 
 	public abstract class CarWashEvent extends Event { 
