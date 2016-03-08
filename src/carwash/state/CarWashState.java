@@ -84,7 +84,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void setMaxQueueSize(int size){
 		maxQueueSize = size;
-		System.out.println("setmaxsize");
+		System.out.println("setmaxsize to " + size);
 	}
 	
 	/**
@@ -92,17 +92,17 @@ public class CarWashState extends SimState {
 	 * @param car to add to queue.
 	 * */
 	public void addQueue(Car car){
-		System.out.println("add queue");
 		carQueue.add(car);
 		carQueueSize++;
 		accepted++;
+		System.out.println("added car to queue, car id: " + car.getId());
 	}
 	/**
 	 * Removes first car in the queue.
 	 * */
 	public Car removeQueue(){
-		System.out.println("remove queue");
 		Car removed = carQueue.getFirst();
+		System.out.println("removed car to queue, car id: " + removed.getId());
 		carQueue.removeFirst();
 		carQueueSize--;
 		return removed;
@@ -171,7 +171,7 @@ public class CarWashState extends SimState {
 	 * @return CarFactory
 	 * */
 	public CarFactory getCarFactory(){
-		System.out.println("gotcarfactory");
+		System.out.println("Created car");
 		return factory;
 	}
 	
