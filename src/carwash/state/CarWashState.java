@@ -92,6 +92,7 @@ public class CarWashState extends SimState {
 	 * @param car to add to queue.
 	 * */
 	public void addQueue(Car car){
+		System.out.println("QueueSize: " + getCarQueueSize());
 		carQueue.add(car);
 		carQueueSize++;
 		accepted++;
@@ -113,6 +114,10 @@ public class CarWashState extends SimState {
 	 * @return Returns time when car will be finished in wash
 	 * */
 	public double addWash(Car car){
+		System.out.println("freeFast: " + freeFast);
+		System.out.println("freeSlow: " + freeSlow);
+		System.out.println("QueueTime: " + getTotalQueueTime());
+		System.out.println("Idle: " + getTotalIdleCarWash());
 		double washTime = 0;
 		boolean foundWash = false;
 		for (CarWash wash : fast){
@@ -121,7 +126,7 @@ public class CarWashState extends SimState {
 				foundWash = true;
 				washTime = wash.timeToWash();
 				freeFast--;
-				System.out.println("W: added car to fast wash, car id: " + wash.getCar().getId() + " ,fast available: " + freeFast);
+				System.out.println("W: added car to fast wash, car id: " + wash.getCar().getId());
 				break;
 				}
 			}
@@ -131,12 +136,13 @@ public class CarWashState extends SimState {
 					wash.addCar(car);
 					washTime = wash.timeToWash();
 					freeSlow--;
-					System.out.println("W: added car to slow wash, car id: " + wash.getCar().getId() + " ,slow available: " + freeSlow);
+					System.out.println("W: added car to slow wash, car id: " + wash.getCar().getId());
 					break;
 				}
 			}
 		}
-		return washTime;
+		//Time car will be finished washing used to create leave event for the car.
+		return currentTime + washTime;
 	}
 	/**
 	 * Removes specific car from the carwash.
