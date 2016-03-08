@@ -34,7 +34,9 @@ import carwash.state.*;
  
  		if (s.getCarQueueSize() == 0){
  			if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) {
- 					s.addWash(car);
+ 					// add car to fastWash or slowWash 
+ 					//s.addWash(car);
+ 					eventQueue.insert(new LeaveEvent(car, s.addWash(car))); 
  			}
  			else s.addQueue(car);
  		}
@@ -43,9 +45,11 @@ import carwash.state.*;
  		}
  		else s.addQueue(car);
  		
+ 		
+ 		/*
  		if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) { 
  			// add car to fastWash or slowWash 
- 			eventQueue.insert(new LeaveEvent(car, s.addWash(car))); 
+ 			
  		} else if (s.getCarQueueSize() < s.getMaxQueueSize()) { 
  			// add to car queue  
  			s.addQueue(car); 
@@ -53,7 +57,7 @@ import carwash.state.*;
  			s.reject(); 
  		} 
  		s.updateView(this); 
- 
+ 		*/
  
  		// if none of the if-statements is fulfilled the car is simply not used 
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
