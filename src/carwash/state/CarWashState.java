@@ -50,12 +50,6 @@ public class CarWashState extends SimState {
 		System.out.println("T: Set currentime to " + currentTime);
 	}
 	/**
-	 * Adds queue time to the total queue time.
-	 * */
-	public void addTotalQueueTime(double time){
-		totalQueueTime += time;
-	}
-	/**
 	 * Creates CarWashes
 	 * @param s number of slow carwashes to create.
 	 * @param f number of fast carwashes to create.
@@ -171,10 +165,12 @@ public class CarWashState extends SimState {
 		}
 	}
 	/**
-	 * 
+	 * Increases totalIdleCarWash with the time carwashes has been idle between events.
+	 * @param time for next event
 	 * */
-	public void incIdleTime(double eventTime){
+	public void incTotalTimes(double eventTime){
 		totalIdleCarWash += ((eventTime - currentTime)*getIdleWashes());
+		totalQueueTime += ((eventTime - currentTime)*carQueueSize);
 	}
 	/**
 	 * Returns the carfactory

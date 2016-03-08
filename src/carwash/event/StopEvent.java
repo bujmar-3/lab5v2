@@ -28,7 +28,7 @@ import carwash.state.CarWashState;
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) { 
 		CarWashState s = (CarWashState) state; 
-		s.incIdleTime(this.time);
+		s.incTotalTimes(this.time);
  		s.setCurrentTime(this.time); 
  		s.updateView(this); 
  		s.stop(); 

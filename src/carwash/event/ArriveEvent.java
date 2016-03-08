@@ -16,8 +16,7 @@ import carwash.state.*;
  	 * @param car The car that arrives 
  	 */ 
  	public ArriveEvent(double time, Car car) { 
- 		super(time, car); 
- 		car.setArrive(time); 
+ 		super(time, car);  
  	} 
  
  	
@@ -29,7 +28,7 @@ import carwash.state.*;
  	public void updateState(SimState state, EventQueue eventQueue) { 
  		CarWashState s = (CarWashState) state; 
  
- 		s.incIdleTime(this.time);
+ 		s.incTotalTimes(this.time);
  		s.setCurrentTime(this.time); 
  
  		if (s.getCarQueueSize() == 0){
