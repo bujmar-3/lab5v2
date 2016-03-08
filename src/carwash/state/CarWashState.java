@@ -47,7 +47,7 @@ public class CarWashState extends SimState {
 	 * */
 	public void setCurrentTime(double time){
 		currentTime = time;
-		System.out.println("Set currentime to " + currentTime);
+		System.out.println("T: Set currentime to " + currentTime);
 	}
 	/**
 	 * Adds queue time to the total queue time.
@@ -95,14 +95,14 @@ public class CarWashState extends SimState {
 		carQueue.add(car);
 		carQueueSize++;
 		accepted++;
-		System.out.println("added car to queue, car id: " + car.getId());
+		System.out.println("Q: added car to queue, car id: " + car.getId());
 	}
 	/**
 	 * Removes first car in the queue.
 	 * */
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
-		System.out.println("removed car to queue, car id: " + removed.getId());
+		System.out.println("Q: removed car to queue, car id: " + removed.getId());
 		carQueue.removeFirst();
 		carQueueSize--;
 		return removed;
@@ -110,6 +110,7 @@ public class CarWashState extends SimState {
 	/**
 	 * Adds Car to CarWash
 	 * @param car to add.
+	 * @return Returns time when car will be finished in wash
 	 * */
 	public double addWash(Car car){
 		double washTime = 0;
@@ -120,7 +121,7 @@ public class CarWashState extends SimState {
 				foundWash = true;
 				washTime = wash.timeToWash();
 				freeFast--;
-				System.out.println("added car to fast wash, car id: " + wash.getCar().getId());
+				System.out.println("W: added car to fast wash, car id: " + wash.getCar().getId() + " ,fast available: " + freeFast);
 				break;
 				}
 			}
@@ -130,7 +131,7 @@ public class CarWashState extends SimState {
 					wash.addCar(car);
 					washTime = wash.timeToWash();
 					freeSlow--;
-					System.out.println("added car to slow wash, car id: " + wash.getCar().getId());
+					System.out.println("W: added car to slow wash, car id: " + wash.getCar().getId() + " ,slow available: " + freeSlow);
 					break;
 				}
 			}
@@ -149,7 +150,7 @@ public class CarWashState extends SimState {
 				carFound = true;
 				freeFast++;
 				spot.setLastTimeUsed(currentTime);
-				System.out.println("removed car from wash with id: " + car.getId());
+				System.out.println("W: removed car from wash with id: " + car.getId());
 				break;
 			}
 		}
@@ -159,7 +160,7 @@ public class CarWashState extends SimState {
 					spot.removeCar();
 					freeSlow++;
 					spot.setLastTimeUsed(currentTime);
-					System.out.println("removed car from wash with id: " + car.getId());
+					System.out.println("W: removed car from wash with id: " + car.getId());
 					break;
 				}
 			}
@@ -295,6 +296,7 @@ public class CarWashState extends SimState {
 	 * Adds one to the number of rejected cars
 	 * */
 	public void reject(){
+		System.out.println("rejected car");
 		rejected++;
 	}
 	/**
