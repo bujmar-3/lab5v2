@@ -9,7 +9,7 @@ import java.util.Vector;
  * 
  * @param <E> The type of the elements. Requires that E implements the interface comparable 
  */ 
-	public class SortedSequence<E extends Comparable<E>> { 
+	public class SortedSequence { 
 		private Vector<Event> seq = new Vector<Event>(); 
  
  

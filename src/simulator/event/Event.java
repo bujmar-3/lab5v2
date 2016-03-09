@@ -2,7 +2,6 @@ package simulator.event;
  
  
 import simulator.state.SimState; 
-import java.lang.Comparable; 
 
  
 /** 
@@ -10,7 +9,7 @@ import java.lang.Comparable;
  * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
  * 
  */ 
-	public abstract class Event implements Comparable<Event> { 
+	public abstract class Event { 
 		protected double time; 
  
 /** 

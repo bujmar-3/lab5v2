@@ -5,7 +5,7 @@ package simulator.event;
  * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
  * 
  */ 
-	public class EventQueue extends SortedSequence<Event> { 
+	public class EventQueue extends SortedSequence { 
 
  
 /** 
