@@ -13,6 +13,7 @@ public class CarWashView extends SimView {
 	
 	public CarWashView(CarWashState state) {
 		setState(state);
+		state.addObserver(this);
 	}
 	
 	public void setState(CarWashState state) {

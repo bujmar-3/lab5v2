@@ -299,9 +299,6 @@ public class CarWashState extends SimState {
 	 * Adds one to the number of rejected cars.
 	 * */
 	public void reject(){
-		System.out.println("QueueTime: " + getTotalQueueTime());
-		System.out.println("Idle: " + totalIdleTime);
-		System.out.println("rejected car");
 		rejected++;
 	}
 	/**
