@@ -11,7 +11,7 @@ public class CarWashView extends SimView {
 	
 	private CarWashState state;
 	
-	public void carWashView(CarWashState state) {
+	public CarWashView(CarWashState state) {
 		setState(state);
 	}
 	

@@ -3,6 +3,7 @@ package simulator;
 import carwash.event.StartEvent;
 import carwash.event.StopEvent;
 import carwash.state.CarWashState;
+import carwash.view.CarWashView;
 import simulator.event.EventQueue;
 /**
  * @author Martin Björklund, Arvid Persson, Emil Lilja.
@@ -33,6 +34,7 @@ public class MainSim {
 			CarWashState state = new CarWashState();
 			EventQueue queue = new EventQueue();
 			Simulator simulator = new Simulator(state, queue);
+			CarWashView view = new CarWashView(state);
 			
 			state.createRandom(fastMax, fastMin, slowMax, slowMin, lambda, seed);
 			state.createWashes(slowWash, fastWash);
