@@ -7,10 +7,8 @@ import java.util.Vector;
  * 
  * It is designed so that it only will remove or return the first element in the sequence. 
  * 
- * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
-  * 
-  * @param <E> The type of the elements. Requires that E implements the interface comparable 
-  */ 
+ * @param <E> The type of the elements. Requires that E implements the interface comparable 
+ */ 
 	public class SortedSequence<E extends Comparable<E>> { 
 		private Vector<E> seq = new Vector<E>(); 
  
@@ -20,12 +18,25 @@ import java.util.Vector;
  	 * @param o the object to be inserted. must be of type E 
  	 */ 
  	public void insert(E o) { 
- 		if (seq.isEmpty()) { 
+ 		if (seq.isEmpty()) 
+ 		{ 
  			seq.add(o); 
- 		} else { 
+ 		} 
+ 		else 
+ 		{ 
  			int i = 0; 
+ 			
  			for (;o.compareTo(seq.elementAt(i)) > 0 && i < seq.size() - 1; i++); 
- 			seq.add( (o.compareTo(seq.get(seq.size() - 1)) < 0) ? i : i + 1, o); 
+ 			{
+ 				if (o.compareTo(seq.get(seq.size() - 1)) < 0) 
+ 				{
+ 					seq.add(i,o);
+ 				}
+ 				else 
+ 				{
+ 					seq.add(i+1,o);
+ 				}
+ 			}
  		} 
  	} 
  
@@ -54,6 +65,13 @@ import java.util.Vector;
  	 * @return the first element of the sorted sequence. it will be of type E 
  	 */ 
  	public E first() { 
- 		return seq.size() > 0 ? seq.elementAt(0) : null; 
+ 		if (seq.size() > 0)
+ 		{
+ 			return seq.elementAt(0);
+ 		}
+ 		else
+ 		{
+ 			return null; 
+ 		}
  	} 
  } 
