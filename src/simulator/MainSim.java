@@ -15,6 +15,7 @@ public class MainSim {
 	 * @param args Stop time, max car queue size, number of fast carwashes, number of slow carwashes, 
 	 * minimum distribution used for fast carwashes, max distribution used for fast carwashes, minimum distribution used for slow carwashes, 
 	 * max distribution used for slow carwashes, lambda used for random number generator, seed used for random number generator.
+	 * @
 	 * */
 	public static void main(String[] args){
 		if (args.length == 10){

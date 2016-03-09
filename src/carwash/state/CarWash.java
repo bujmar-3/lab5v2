@@ -2,6 +2,7 @@ package carwash.state;
 import random.UniformRandomStream;
 
 /**
+ * The CarWash class used to simulate carwashes.
  * @author Martin Björklund, Arvid Persson, Emil Lilja.
  * */
 
@@ -11,8 +12,8 @@ private Car car;
 private UniformRandomStream uniStream;
 
 /**
- * Creates a new CarWash
- * @param int speed of the machine 1 for fast 0 for slow
+ * The constructor, constructs a new CarWash
+ * @param uniStr the UniformRandomStream used to calculate washing time.
  * */
 public CarWash(UniformRandomStream uniStr){
 	this.uniStream = uniStr;

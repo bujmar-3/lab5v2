@@ -1,9 +1,15 @@
 package carwash.state;
 
+
 import simulator.state.SimState;
 import java.util.Vector;
 import random.ExponentialRandomStream;
 import random.UniformRandomStream;
+
+/**
+ * The CarWashState used to store the current state of the carwash.
+ * @author Martin Björklund, Arvid Persson, Emil Lilja.
+ * */
 
 public class CarWashState extends SimState {
 	private Vector<CarWash> slow;
@@ -32,6 +38,9 @@ public class CarWashState extends SimState {
 	private double totalQueueTime;
 	private double totalIdleTime;
 	
+	/**
+	 * The constructor, constructs a CarWashState.
+	 * */
 	
 	public CarWashState(){
 		slow = new Vector<CarWash>();
@@ -46,7 +55,6 @@ public class CarWashState extends SimState {
 	 * */
 	public void setCurrentTime(double time){
 		currentTime = time;
-		System.out.println("T: Set currentime to " + currentTime);
 	}
 	/**
 	 * Creates CarWashes
@@ -58,8 +66,6 @@ public class CarWashState extends SimState {
 		freeFast = f;
 		numSlow = s;
 		freeSlow = s;
-		System.out.println("Created fast " + f);
-		System.out.println("Created slow " + s);
 		//Creates slow machines
 		for (int i = 0; i < s; i++){
 			CarWash wash = new CarWash(slowRandom);
@@ -77,7 +83,6 @@ public class CarWashState extends SimState {
 	 * */
 	public void setMaxQueueSize(int size){
 		maxQueueSize = size;
-		System.out.println("setmaxsize to " + size);
 	}
 	
 	/**
@@ -85,10 +90,8 @@ public class CarWashState extends SimState {
 	 * @param car
 	 * */
 	public void addQueue(Car car){
-		System.out.println("QueueSize: " + getCarQueueSize());
 		carQueue.add(car);
 		accepted++;
-		System.out.println("Q: added car to queue, car id: " + car.getId());
 	}
 	/**
 	 * Removes first car in the car queue.
@@ -96,7 +99,6 @@ public class CarWashState extends SimState {
 	 * */
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
-		System.out.println("Q: removed car from queue, car id: " + removed.getId());
 		carQueue.removeFirst();
 		return removed;
 	}
@@ -106,10 +108,6 @@ public class CarWashState extends SimState {
 	 * @return Returns time when car will be finished in wash
 	 * */
 	public double addWash(Car car){
-		System.out.println("freeFast: " + freeFast);
-		System.out.println("freeSlow: " + freeSlow);
-		System.out.println("QueueTime: " + getTotalQueueTime());
-		System.out.println("Idle: " + totalIdleTime);
 		double washTime = 0;
 		boolean foundWash = false;
 		for (CarWash wash : fast){
@@ -118,7 +116,6 @@ public class CarWashState extends SimState {
 				foundWash = true;
 				washTime = wash.timeToWash();
 				freeFast--;
-				System.out.println("W: added car to fast wash, car id: " + wash.getCar().getId());
 				break;
 				}
 			}
@@ -128,7 +125,6 @@ public class CarWashState extends SimState {
 					wash.addCar(car);
 					washTime = wash.timeToWash();
 					freeSlow--;
-					System.out.println("W: added car to slow wash, car id: " + wash.getCar().getId());
 					break;
 				}
 			}
@@ -147,7 +143,6 @@ public class CarWashState extends SimState {
 				wash.removeCar();
 				carFound = true;
 				freeFast++;
-				System.out.println("W: removed car from wash with id: " + car.getId());
 				break;
 			}
 		}
@@ -156,7 +151,6 @@ public class CarWashState extends SimState {
 				if (spot.getCar()==car){
 					spot.removeCar();
 					freeSlow++;
-					System.out.println("W: removed car from wash with id: " + car.getId());
 					break;
 				}
 			}
@@ -177,7 +171,6 @@ public class CarWashState extends SimState {
 	 * @return CarFactory
 	 * */
 	public CarFactory getCarFactory(){
-		System.out.println("Created car");
 		return factory;
 	}
 	
@@ -201,7 +194,6 @@ public class CarWashState extends SimState {
 		carRandom = new ExponentialRandomStream(this.lambda, this.seed);
 		fastRandom = new UniformRandomStream(this.fastMin, this.fastMax, this.seed);
 		slowRandom = new UniformRandomStream(this.slowMin, this.slowMax, this.seed);
-		System.out.println("created streams");
 	}
 	
 	///Below you find statistics to print/use.
