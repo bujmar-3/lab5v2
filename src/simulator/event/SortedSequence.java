@@ -10,33 +10,30 @@ import java.util.Vector;
  * @param <E> The type of the elements. Requires that E implements the interface comparable 
  */ 
 	public class SortedSequence<E extends Comparable<E>> { 
-		private Vector<E> seq = new Vector<E>(); 
+		private Vector<Event> seq = new Vector<Event>(); 
  
  
  	/** 
  	 * Inserts an element into the sorted sequence 
  	 * @param o the object to be inserted. must be of type E 
  	 */ 
- 	public void insert(E o) { 
+ 	public void insert(Event o) { 
  		if (seq.isEmpty()) 
  		{ 
  			seq.add(o); 
  		} 
  		else 
  		{ 
- 			int i = 0; 
- 			
- 			for (;o.compareTo(seq.elementAt(i)) > 0 && i < seq.size() - 1; i++); 
- 			{
- 				if (o.compareTo(seq.get(seq.size() - 1)) < 0) 
+ 			int i = 0;
+ 			for (Event event : seq){
+ 				if (o.getTime() < event.getTime()) 
  				{
  					seq.add(i,o);
+ 					return;
  				}
- 				else 
- 				{
- 					seq.add(i+1,o);
- 				}
+ 				i++;
  			}
+ 			seq.add(o);
  		} 
  	} 
  
@@ -64,7 +61,7 @@ import java.util.Vector;
  	 * Method returning the first element of the sorted sequence 
  	 * @return the first element of the sorted sequence. it will be of type E 
  	 */ 
- 	public E first() { 
+ 	public Event first() { 
  		if (seq.size() > 0)
  		{
  			return seq.elementAt(0);
