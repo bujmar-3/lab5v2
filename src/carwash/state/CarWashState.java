@@ -169,7 +169,7 @@ public class CarWashState extends SimState {
 	 * @param time for next event
 	 * */
 	public void incTotalTimes(double eventTime){
-		totalIdleCarWash += ((eventTime - currentTime)*getIdleWashes());
+		totalIdleCarWash += ((eventTime - currentTime)*(freeFast + freeSlow));
 		totalQueueTime += ((eventTime - currentTime)*carQueueSize);
 	}
 	/**
@@ -301,6 +301,8 @@ public class CarWashState extends SimState {
 	 * Adds one to the number of rejected cars
 	 * */
 	public void reject(){
+		System.out.println("QueueTime: " + getTotalQueueTime());
+		System.out.println("Idle: " + totalIdleCarWash);
 		System.out.println("rejected car");
 		rejected++;
 	}
@@ -317,24 +319,6 @@ public class CarWashState extends SimState {
 	 * */
 	public int getCarQueueSize(){
 		return carQueueSize;
-	}
-	/**
-	 * Gets the number of idle carwashes.
-	 * @return number idle carwashes.
-	 * */
-	public int getIdleWashes(){
-		int idleWashes = 0;
-		for (CarWash wash : fast){
-			if (!wash.gotCar()){
-				idleWashes++;
-			}
-		}
-		for (CarWash wash : slow){
-			if (!wash.gotCar()){
-				idleWashes++;
-			}
-		}
-		return idleWashes;
 	}
 	/**
 	 * Returns the time carwashes has been idle.
