@@ -24,12 +24,6 @@ public int getSize(){
 	return carQ.size();
 }
 /**
- * @return True if FIFO is empty otherwise false.
- * */
-public boolean empty(){
-	return carQ.isEmpty();
-}
-/**
  * Check if FIFO is empty, if not returns Car object at first index.
  * @return Returns the first element in the FIFO.
  * */
@@ -42,11 +36,4 @@ public Car getFirst(){
 public void removeFirst(){
 		carQ.remove(0);
 	}
-/**
- * @return Returns the vector CarQ which holds car objects 
- * */
-public Vector<Car> getCarq(){
-	return carQ;
-}
-
 }

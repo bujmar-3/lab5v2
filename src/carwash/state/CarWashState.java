@@ -23,7 +23,6 @@ public class CarWashState extends SimState {
 	private double slowMax;
 	private double lambda;
 	private double currentTime;
-	private int carQueueSize;
 	private int rejected;
 	private int accepted;
 	private int numFast;
@@ -31,7 +30,7 @@ public class CarWashState extends SimState {
 	private int freeFast;
 	private int freeSlow;
 	private double totalQueueTime;
-	private double totalIdleCarWash;
+	private double totalIdleTime;
 	
 	
 	public CarWashState(){
@@ -42,7 +41,7 @@ public class CarWashState extends SimState {
 		start();
 	}
 	/**
-	 * Sets current time
+	 * Sets current time for the simulation.
 	 * @param double to set current time to.
 	 * */
 	public void setCurrentTime(double time){
@@ -82,24 +81,23 @@ public class CarWashState extends SimState {
 	}
 	
 	/**
-	 * Adds car to the queue.
-	 * @param car to add to queue.
+	 * Adds car to the car queue.
+	 * @param car
 	 * */
 	public void addQueue(Car car){
 		System.out.println("QueueSize: " + getCarQueueSize());
 		carQueue.add(car);
-		carQueueSize++;
 		accepted++;
 		System.out.println("Q: added car to queue, car id: " + car.getId());
 	}
 	/**
-	 * Removes first car in the queue.
+	 * Removes first car in the car queue.
+	 * @return car that is first in car queue.
 	 * */
 	public Car removeQueue(){
 		Car removed = carQueue.getFirst();
 		System.out.println("Q: removed car from queue, car id: " + removed.getId());
 		carQueue.removeFirst();
-		carQueueSize--;
 		return removed;
 	}
 	/**
@@ -111,7 +109,7 @@ public class CarWashState extends SimState {
 		System.out.println("freeFast: " + freeFast);
 		System.out.println("freeSlow: " + freeSlow);
 		System.out.println("QueueTime: " + getTotalQueueTime());
-		System.out.println("Idle: " + totalIdleCarWash);
+		System.out.println("Idle: " + totalIdleTime);
 		double washTime = 0;
 		boolean foundWash = false;
 		for (CarWash wash : fast){
@@ -144,9 +142,9 @@ public class CarWashState extends SimState {
 	 * */
 	public void removeWash(Car car){
 		boolean carFound = false;
-		for (CarWash spot : fast){
-			if (spot.getCar()==car){
-				spot.removeCar();
+		for (CarWash wash : fast){
+			if (wash.getCar()==car){
+				wash.removeCar();
 				carFound = true;
 				freeFast++;
 				System.out.println("W: removed car from wash with id: " + car.getId());
@@ -165,15 +163,17 @@ public class CarWashState extends SimState {
 		}
 	}
 	/**
-	 * Increases totalIdleCarWash with the time carwashes has been idle between events.
-	 * @param time for next event
+	 * Increases the total queue time for carqueue and the total idle time for carwashes.
+	 * @param time next event will occur
 	 * */
+	//Takes the time next event will occur minus the time before the event occured and multiplies it with the amount of carwashes that has been idle.
+	//Takes the time next event will occur minus the time before the event occured and multiplies it with the amount of cars that has been in queue.
 	public void incTotalTimes(double eventTime){
-		totalIdleCarWash += ((eventTime - currentTime)*(freeFast + freeSlow));
-		totalQueueTime += ((eventTime - currentTime)*carQueueSize);
+		totalIdleTime += ((eventTime - currentTime)*(freeFast + freeSlow));
+		totalQueueTime += ((eventTime - currentTime)*getCarQueueSize());
 	}
 	/**
-	 * Returns the carfactory
+	 * Returns the carfactory that are used to create the cars.
 	 * @return CarFactory
 	 * */
 	public CarFactory getCarFactory(){
@@ -183,6 +183,12 @@ public class CarWashState extends SimState {
 	
 	/**
 	 * Creates random streams.
+	 * @param fastMax The max distribution time for fast machines.
+	 * @param fastMin The minimum distribution time for fast machines.
+	 * @param slowMax The max distribution time for slow machines. 
+	 * @param slowMin The minimum distribution time for slow machines.
+	 * @param lambda Lambda used for number generator.
+	 * @param seed Seed used for number generator.
 	 * */
 	public void createRandom(double fastMax, double fastMin, double slowMax, double slowMin, double lambda, long seed){
 		this.fastMax = fastMax;
@@ -200,14 +206,14 @@ public class CarWashState extends SimState {
 	
 	///Below you find statistics to print/use.
 	/**
-	 * Gets seed
+	 * Gets seed used in number generator
 	 * @return seed
 	 * */
 	public long getSeed(){
 		return seed;
 	}
 	/**
-	 * Gets lambda
+	 * Gets lambda used in number generator
 	 * @return lambda
 	 * */
 	public double getLambda(){
@@ -215,28 +221,28 @@ public class CarWashState extends SimState {
 	}
 	/**
 	 * Gets the maximum value used in random number generator for slow carwashes.
-	 * @return max value for number generator used for slow carwashes.
+	 * @return double
 	 * */
 	public double getSlowMax(){
 		return slowMax;
 	}
 	/**
 	 * Gets the minimum value used in random number generator for slow carwashes.
-	 * @return minimum value for number generator used for slow carwashes.
+	 * @return double.
 	 * */
 	public double getSlowMin(){
 		return slowMin;
 	}
 	/**
 	 * Gets the maximum value used in random number generator for fast carwashes.
-	 * @return max value for number generator used for fast carwashes.
+	 * @return double
 	 * */
 	public double getFastMax(){
 		return fastMax;
 	}
 	/**
 	 * Gets the minimum value used in random number generator for fast carwashes.
-	 * @return minimum value for number generator used for fast carwashes.
+	 * @return double
 	 * */
 	public double getFastMin(){
 		return fastMin;
@@ -298,33 +304,34 @@ public class CarWashState extends SimState {
 		return maxQueueSize;
 	}
 	/**
-	 * Adds one to the number of rejected cars
+	 * Adds one to the number of rejected cars.
 	 * */
 	public void reject(){
 		System.out.println("QueueTime: " + getTotalQueueTime());
-		System.out.println("Idle: " + totalIdleCarWash);
+		System.out.println("Idle: " + totalIdleTime);
 		System.out.println("rejected car");
 		rejected++;
 	}
 	/**
 	 * Returns number of rejected cars.
-	 * @return number rejected cars.
+	 * @return int
 	 * */
 	public int getRejected(){
 		return rejected;
 	}
 	/**
-	 * Returns the size of the car queue.
-	 * @return size of car queue.
+	 * Returns the current size of the car queue.
+	 * @return int
 	 * */
 	public int getCarQueueSize(){
-		return carQueueSize;
+		return carQueue.getSize();
 	}
+
 	/**
 	 * Returns the time carwashes has been idle.
-	 * @return time carwash is idle
+	 * @return double
 	 * */
-	public double getTotalIdleCarWash(){
-		return totalIdleCarWash;
+	public double getTotalIdleTime(){
+		return totalIdleTime;
 	}
 }
