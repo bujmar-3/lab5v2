@@ -1,12 +1,10 @@
 package simulator.event; 
-
  
 import java.util.Vector; 
+
 /** 
- * The class defines a sorted sequence. It keeps al element sorted by requiring that al elements should be of the same type and implements the interface comparable. 
- * 
+ * The class defines a sorted sequence. It keeps all element sorted by requiring that all elements should be of the same type and implements the interface comparable. 
  * It is designed so that it only will remove or return the first element in the sequence. 
- * 
  * @param <E> The type of the elements. Requires that E implements the interface comparable 
  */ 
 	public class SortedSequence { 
@@ -37,7 +35,6 @@ import java.util.Vector;
  		} 
  	} 
  
- 
  	/** 
  	 * Method returning the number of elements in the sorted sequence 
  	 * @return the number of elements in the sorted sequence 
@@ -45,7 +42,6 @@ import java.util.Vector;
  	public int size() { 
  		return seq.size(); 
  	} 
- 
  
  	/** 
  	 * Method removing the first element in the sorted sequence 
@@ -55,7 +51,6 @@ import java.util.Vector;
  			seq.removeElementAt(0); 
  		} 
  	} 
- 
  
  	/** 
  	 * Method returning the first element of the sorted sequence 

@@ -4,11 +4,10 @@ import carwash.state.*;
 import simulator.state.SimState; 
 import simulator.event.EventQueue; 
  
-/** 
- * A LeaveEvent for a CarWash. Symbolizes the leaving of a car from a carwash. 
-  */ 
+  /** 
+   * A LeaveEvent for a CarWash. Symbolizes the leaving of a car from a carwash. 
+   */ 
  public class LeaveEvent extends CarWashEvent { 
- 
  
  	/** 
  	 * Constructs a LeaveEvent with a specific car 
@@ -19,12 +18,11 @@ import simulator.event.EventQueue;
  		super(time, car); 
  	} 
  
- 
  	/** 
  	 * updates the state with the changes that a LeaveEvent causes. 
  	 * It removes the car from the CarWashes and if the car queue 
  	 * isn't empty add a new car from that queue to the machines. 
- 	 * @param state the state wich is to be updated 
+ 	 * @param state the state witch is to be updated 
  	 * @param eventQueue the eventqueue from where the event came from 
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) {

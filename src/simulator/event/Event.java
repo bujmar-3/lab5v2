@@ -1,20 +1,17 @@
 package simulator.event; 
  
- 
 import simulator.state.SimState; 
 
- 
-/** 
- * an Abstract event describing an event for a Simulation of a SimState 
- * @author Andreas Nielsen, Fredrik Lind, Sebastian Larsson 
- * 
- */ 
+  /** 
+   * an Abstract event describing an event for a Simulation of a SimState 
+   * 
+   */ 
 	public abstract class Event { 
 		protected double time; 
  
-/** 
- * Constructs an Event 
- */ 
+  /** 
+   * Constructs an Event 
+   */ 
  	public Event() { 
  	} 
  
@@ -26,7 +23,6 @@ import simulator.state.SimState;
  		this.time = time; 
  	} 
  
- 
  	/** 
  	 * Method returning the time the event will occur 
  	 * @return the time the event will occur 
@@ -35,12 +31,10 @@ import simulator.state.SimState;
  		return time; 
  	} 
  
- 
  	/** 
  	 * The method that execute the event. It updates the state with the changes that the event causes  
  	 * @param state the state that is to be updated due to the event 
  	 * @param eventQueue the queue that the event came from 
  	 */ 
  	public abstract void updateState(SimState state, EventQueue eventQueue); 
- 
  } 

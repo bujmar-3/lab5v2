@@ -1,18 +1,15 @@
 package carwash.event; 
  
- 
 import simulator.event.Event; 
 import simulator.state.SimState; 
 import simulator.event.EventQueue; 
 
 import carwash.state.CarWashState; 
 
- 
 /** 
  * A class symbolizing the stopping of the carwashstate 
  */ 
 	public class StopEvent extends Event { 
- 
  
 /** 
  * Constructs a stop event 
@@ -22,9 +19,10 @@ import carwash.state.CarWashState;
  		this.time = time; 
  	} 
  
- 
  	/** 
  	 * method updating the state according to the stop event 
+ 	 * @param state The state that should be updated 
+ 	 * @param eventQueue the queue where the event came from 
  	 */ 
  	public void updateState(SimState state, EventQueue eventQueue) { 
 		CarWashState s = (CarWashState) state; 
