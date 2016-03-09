@@ -1,6 +1,10 @@
 package carwash.state;
 import random.UniformRandomStream;
 
+/**
+ * @author Martin Björklund, Arvid Persson, Emil Lilja.
+ * */
+
 public class CarWash {
 private boolean hasCar;
 private Car car;

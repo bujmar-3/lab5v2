@@ -73,7 +73,7 @@ public class CarWashState extends SimState {
 	}
 	/**
 	 * Sets maximum queue size for car queue.
-	 * @param size
+	 * @param size of queue
 	 * */
 	public void setMaxQueueSize(int size){
 		maxQueueSize = size;
