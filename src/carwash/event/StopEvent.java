@@ -30,5 +30,11 @@ import carwash.state.CarWashState;
  		s.setCurrentTime(this.time); 
  		s.updateView(this); 
  		s.stop(); 
- 	} 
+ 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Stop";
+	} 
  } 

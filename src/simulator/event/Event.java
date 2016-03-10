@@ -14,6 +14,8 @@ import simulator.state.SimState;
    */ 
  	public Event() { 
  	} 
+ 	
+ 	public abstract String getName();
  
  	/** 
  	 * Constructs an Event with a given time that it should occur 

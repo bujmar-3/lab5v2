@@ -46,5 +46,11 @@ import carwash.state.*;
  		// if none of the if-statements is fulfilled the car is simply not used 
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
  					s.getCarFactory().createCar())); 
- 	} 
+ 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Arrive";
+	} 
  } 

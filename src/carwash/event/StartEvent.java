@@ -24,5 +24,11 @@ import carwash.state.CarWashState;
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
  		s.getCarFactory().createCar())); 
  		s.updateView(this);  
- 	} 
+ 	}
+
+@Override
+public String getName() {
+	// TODO Auto-generated method stub
+	return "Start";
+} 
  } 

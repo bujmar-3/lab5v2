@@ -7,7 +7,7 @@ import carwash.event.StartEvent;
 import carwash.event.StopEvent;
 import carwash.state.CarWashState;
 import simulator.event.Event;
-import simulator.view.SimView;;
+import simulator.view.SimView;
 
 public class CarWashView extends SimView {
 	
@@ -49,7 +49,7 @@ public class CarWashView extends SimView {
 			String reportLine = String.format(
 					"%.2f\t%s\t%s\t-\t%s\t%s\t\t%.2f\t\t%s\t\t%s",
 					e.getTime(), state.getFreeFast(),
-					state.getFreeSlow(), e,
+					state.getFreeSlow(), e.getName(),
 					state.getTotalIdleTime(), state.getTotalQueueTime(),
 					state.getCarQueueSize(), state.getRejected());
 			System.out.println(reportLine);
@@ -59,7 +59,7 @@ public class CarWashView extends SimView {
 			String reportLine = String.format(
 					"%.2f\t%s\t%s\t-\t%s\t%.2f\t\t%.2f\t\t%s\t\t%s",
 					e.getTime(), state.getFreeFast(),
-					state.getFreeSlow(), e,
+					state.getFreeSlow(), e.getName(),
 					state.getTotalIdleTime(), state.getTotalQueueTime(),
 					state.getCarQueueSize(), state.getRejected());
 			System.out.println(reportLine);
@@ -83,8 +83,8 @@ public class CarWashView extends SimView {
 			String reportLine = String.format(
 					"%.2f\t%s\t%s\t%s\t%s\t%.2f\t\t%.2f\t\t%s\t\t%s",
 					e.getTime(), state.getFreeFast(),
-					state.getFreeSlow(), ((CarWashEvent)e).getCar(),
-					e, state.getTotalIdleTime(),
+					state.getFreeSlow(), ((CarWashEvent)e).getCar().getId(),
+					e.getName(), state.getTotalIdleTime(),
 					state.getTotalQueueTime(), state.getCarQueueSize(),
 					state.getRejected());
 			System.out.println(reportLine);

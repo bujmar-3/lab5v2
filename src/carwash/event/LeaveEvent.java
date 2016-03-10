@@ -35,5 +35,11 @@ import simulator.event.EventQueue;
  			eventQueue.insert(new LeaveEvent(c, s.addWash(c))); 
  		} 
  		s.updateView(this);
- 	} 
+ 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Leave";
+	} 
  } 
