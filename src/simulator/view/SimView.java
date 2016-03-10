@@ -2,10 +2,12 @@ package simulator.view;
 
 import java.util.Observable;
 import java.util.Observer;
-import simulator.event.Event;
+import simulator.state.SimState;
 
 
 public abstract class SimView implements Observer {
 	
-	public abstract void update(Observable o, Event e);
+	public SimView(SimState state){
+		state.addObserver(this);
+	}
 }
