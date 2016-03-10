@@ -258,7 +258,7 @@ public class CarWashState extends SimState {
 	 * @return double.
 	 * */
 	public double getMeanQueueTime(){
-		return totalQueueTime/(accepted+getCarQueueSize());
+		return totalQueueTime/(accepted+getCarQueueSize()-1);
 	}
 	/**
 	 * Returns number of fast carwashes.
