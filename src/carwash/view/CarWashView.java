@@ -93,7 +93,7 @@ public class CarWashView extends SimView {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Event e = (Event)arg;
-		printOut(state, e);
+			Event e = (Event)arg;
+			printOut(state, e);
+		}
 	}
-}

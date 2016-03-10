@@ -91,7 +91,6 @@ public class CarWashState extends SimState {
 	 * */
 	public void addQueue(Car car){
 		carQueue.add(car);
-		accepted++;
 	}
 	/**
 	 * Removes first car in the car queue.
@@ -115,6 +114,7 @@ public class CarWashState extends SimState {
 				wash.addCar(car);
 				foundWash = true;
 				washTime = wash.timeToWash();
+				accepted++;
 				freeFast--;
 				break;
 				}
@@ -124,6 +124,7 @@ public class CarWashState extends SimState {
 				if(wash.gotCar()==false){
 					wash.addCar(car);
 					washTime = wash.timeToWash();
+					accepted++;
 					freeSlow--;
 					break;
 				}
@@ -258,7 +259,7 @@ public class CarWashState extends SimState {
 	 * @return double.
 	 * */
 	public double getMeanQueueTime(){
-		return totalQueueTime/(accepted+getCarQueueSize()-1);
+		return totalQueueTime/(accepted+getCarQueueSize());
 	}
 	/**
 	 * Returns number of fast carwashes.

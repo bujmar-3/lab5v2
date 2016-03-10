@@ -28,7 +28,7 @@ import carwash.state.*;
  		CarWashState s = (CarWashState) state; 
  		s.incTotalTimes(this.time);
  		s.setCurrentTime(this.time); 
- 
+ 		s.updateView(this); 
  		if (s.getCarQueueSize() == 0){
  			if (s.getFreeFast() > 0 || s.getFreeSlow() > 0) {
  					// add car to fastWash or slowWash 
@@ -41,7 +41,7 @@ import carwash.state.*;
  		}
  		else s.addQueue(car);
  		
- 		s.updateView(this); 
+ 	
  		
  		// if none of the if-statements is fulfilled the car is simply not used 
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 

@@ -29,12 +29,12 @@ import simulator.event.EventQueue;
  		CarWashState s = (CarWashState) state; 
  		s.incTotalTimes(this.time);
  		s.setCurrentTime(this.time);
+ 		s.updateView(this);
  		s.removeWash(this.car); 
  		if (s.getCarQueueSize() != 0) { 
  			Car c = s.removeQueue(); 
  			eventQueue.insert(new LeaveEvent(c, s.addWash(c))); 
  		} 
- 		s.updateView(this);
  	}
 
 	@Override

@@ -23,7 +23,7 @@ import carwash.state.CarWashState;
  		s.setCurrentTime(this.time); 
  		eventQueue.insert(new ArriveEvent(s.nextArrive(), 
  		s.getCarFactory().createCar())); 
- 		s.updateView(this);  
+ 		s.updateView(this); 
  	}
 
 @Override

@@ -1,6 +1,5 @@
 package simulator.view;
 
-import java.util.Observable;
 import java.util.Observer;
 import simulator.state.SimState;
 
